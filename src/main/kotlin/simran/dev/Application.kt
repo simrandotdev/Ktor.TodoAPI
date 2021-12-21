@@ -8,9 +8,7 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.ktorm.database.Database
-import org.ktorm.dsl.from
-import org.ktorm.dsl.insert
-import org.ktorm.dsl.select
+import org.ktorm.dsl.*
 import simran.dev.entities.NoteEntity
 import simran.dev.plugins.*
 
@@ -26,11 +24,17 @@ fun main() {
             password = "rootpassword"
         )
 
-        val notes = database.from(NoteEntity)
-            .select()
-
-        for (row in notes) {
-            println("${row[NoteEntity.id]} : ${row[NoteEntity.note]}")
+        database.update(NoteEntity) {
+            set(it.note, "Study Ktor")
+            where {
+                it.id eq 1
+            }
+        }
+        database.insert(NoteEntity) {
+            set(it.note, "test note")
+        }
+        database.delete(NoteEntity) {
+            it.note eq "test note"
         }
 
 
