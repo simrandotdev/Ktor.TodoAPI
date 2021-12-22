@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
+import simran.dev.routing.notesRoutes
 
 fun Application.configureRouting() {
 
@@ -13,4 +14,5 @@ fun Application.configureRouting() {
                 call.respondText("Hello World!")
             }
     }
+    notesRoutes()
 }
